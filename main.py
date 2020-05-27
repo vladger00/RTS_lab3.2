@@ -9,6 +9,7 @@ from kivy.core.window import Window
 import kivy.uix.dropdown
 import time
 import datetime
+import kivy.uix.popup
 
 class MyApp(kivy.app.App):
 
@@ -48,6 +49,7 @@ class MyApp(kivy.app.App):
         bl.add_widget(kivy.uix.button.Button(text = " Почати виконання", on_press = self.Perceptron))
         self.result_label = kivy.uix.label.Label(text = "Результат виконання")
         bl.add_widget(self.result_label)
+        #bl.add_widget(kivy.uix.button.Button(text="Вивести кількість ітерацій", on_press = self.show_popup))
 
 
 
@@ -115,9 +117,20 @@ class MyApp(kivy.app.App):
                 if success == 2:
                     break
                 count+=1
+        print(count)
         end_exec_time = time.time()
         self.exec_time = end_exec_time - start_exec_time
         self.result_label.text = "Для точок ({},{}) ({},{}).\n Поріг спрацювання P = {}, швидкість навчання δ = {}, W1 = {}, W2= {}".format(dot1_1,dot1_2,dot2_1,dot2_2,P,G,W1,W2)
+
+
+
+
+
+        popup = kivy.uix.popup.Popup(title='Кількість ітерацій',
+                                     content=kivy.uix.label.Label(text='Кількість ітерацій: {}'.format(count)),
+                                     size_hint=(None, None), size=(400, 400))
+        popup.open()
+
 
 
 
